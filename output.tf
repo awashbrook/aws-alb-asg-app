@@ -1,4 +1,4 @@
 output "load_balancer_dns" {
-  value = aws_elb.my-elb.dns_name
+  value = aws_lb.my-alb.dns_name
 }
 

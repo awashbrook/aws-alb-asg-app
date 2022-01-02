@@ -18,7 +18,7 @@ resource "aws_autoscaling_group" "example-autoscaling" {
   max_size                  = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"
-  load_balancers            = [aws_elb.my-elb.name]
+  load_balancers            = [aws_lb.my-alb.name]
   force_delete              = true
 
   tag {
