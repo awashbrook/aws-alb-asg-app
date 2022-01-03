@@ -1,10 +1,12 @@
 resource "aws_launch_configuration" "example-launchconfig" {
   name_prefix     = "example-launchconfig"
-  image_id        = var.AMIS[var.AWS_REGION]
-  instance_type   = "t3.nano"
+  image_id        = data.aws_ami.amazon_linux_2.image_id
+  instance_type   = var.instance_type
   key_name        = aws_key_pair.mykeypair.key_name
   security_groups = [aws_security_group.myinstance.id]
-  user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools nginx\nMYIP=`ifconfig | grep -E '(inet 10)|(addr:10)' | awk '{ print $2 }' | cut -d ':' -f2`\necho 'this is: '$MYIP > /var/www/html/index.html"
+  user_data       = filebase64("scripts/init_webserver.sh")
+  # user_data = filebase64("${path.module}/init_webserver.sh")
+  # user_data       = "#!/bin/bash\napt-get update\napt-get -y install net-tools nginx\nMYIP=`ifconfig | grep -E '(inet 10)|(addr:10)' | awk '{ print $2 }' | cut -d ':' -f2`\necho 'this is: '$MYIP > /var/www/html/index.html"
   lifecycle {
     create_before_destroy = true
   }
