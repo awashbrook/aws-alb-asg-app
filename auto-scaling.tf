@@ -16,14 +16,15 @@ resource "aws_autoscaling_group" "example-autoscaling" {
   launch_configuration      = aws_launch_configuration.example-launchconfig.name
   min_size                  = 2
   max_size                  = 2
-  health_check_grace_period = 300
-  health_check_type         = "ELB"
-  load_balancers            = [aws_lb.my-alb.name]
   force_delete              = true
+  health_check_type         = "EC2"
+  health_check_grace_period = 300
+  target_group_arns         = [aws_lb_target_group.my-lb-tg.arn]
+  # load_balancers            = [aws_lb.my-alb.name]
 
   tag {
     key                 = "Name"
-    value               = "ec2 instance"
+    value               = "example-autoscaling"
     propagate_at_launch = true
   }
 }
