@@ -1,5 +1,5 @@
 resource "aws_launch_configuration" "example-launchconfig" {
-  name_prefix                 = "example-launchconfig"
+  name_prefix                 = "example-launchconfig-02"
   associate_public_ip_address = true # TODO Only for troubleshooting
   image_id                    = data.aws_ami.amazon_linux_2.image_id
   instance_type               = var.instance_type
