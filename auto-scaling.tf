@@ -17,7 +17,8 @@ resource "aws_launch_template" "example-launchtemplate" {
 
 resource "aws_autoscaling_group" "example-autoscaling" {
   name                = "example-autoscaling"
-  vpc_zone_identifier = [aws_subnet.main-public-1.id, aws_subnet.main-public-2.id] # TODO Make Private
+  vpc_zone_identifier = aws_subnet.public[*].id # TODO Make Private
+
   launch_template {
     id      = aws_launch_template.example-launchtemplate.id
     version = "$Latest"
