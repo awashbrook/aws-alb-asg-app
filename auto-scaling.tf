@@ -7,7 +7,7 @@ resource "aws_launch_template" "example-launchtemplate" {
   user_data = filebase64("scripts/init_webserver.sh")
 
   network_interfaces {
-    associate_public_ip_address = true # TODO Only for troubleshooting
+    associate_public_ip_address = false
     security_groups             = [aws_security_group.myinstance.id]
   }
   lifecycle {
@@ -17,7 +17,7 @@ resource "aws_launch_template" "example-launchtemplate" {
 
 resource "aws_autoscaling_group" "example-autoscaling" {
   name                = "example-autoscaling"
-  vpc_zone_identifier = aws_subnet.public[*].id # TODO Make Private
+  vpc_zone_identifier = aws_subnet.private[*].id
 
   launch_template {
     id      = aws_launch_template.example-launchtemplate.id
