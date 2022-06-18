@@ -1,0 +1,4 @@
+framework: terraform
+skip-check: 
+  - CKV2_AWS_28 
+soft-fail: true
