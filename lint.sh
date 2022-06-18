@@ -1,3 +1,3 @@
 #!/bin/sh -x
 
-tflint && checkov -d . -s --framework terraform && terraform validate && terraform fmt --recursive
+tflint && checkov -d . && terraform validate && terraform fmt --recursive
